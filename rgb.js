@@ -48,9 +48,12 @@ window.onload = function() {
             mensaje.textContent = "Correcto";
             cambiarColores(colores[colorCorrecto]);
             jugando = false;
+            selec.forEach(dentro => {
+              dentro.style.backgroundColor=colorCorrecto;
+          })
           } else {
             mensaje.textContent = "Inténtalo de nuevo";
-            e.target.classList.add("incorrecto");
+            event.target.style.backgroundColor="rgb(35,35,35)"
           }
         }
       });
