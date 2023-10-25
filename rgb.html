@@ -1,70 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Color Guessing Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
-        .color-box {
+         .huecos {
             width: 100px;
             height: 100px;
             display: inline-block;
-            margin: 5px;
+            margin: 10px;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>Color Guessing Game</h1>
-    <p>Guess the color based on the RGB value below:</p>
-    <p id="rgb-display"></p>
-    <div id="color-boxes">
-    </div>
-    <p id="message"></p>
+        <h1>Adivina el Color</h1>
+        <p>Selecciona el color que crees que coincide con el valor RGB:</p>
+        <div id="rgb"></div>
+        <div id="mensaje"></div>
+        <div id="colores">
+            <div class="huecos"></div>
+            <div class="huecos"></div>
+            <div class="huecos"></div>
+            <div class="huecos"></div>
+            <div class="huecos"></div>
+            <div class="huecos"></div>
+        </div>
+        <button id="reset-boton">Reiniciar</button>
+    <!-- <h1>Adivina el Color</h1>
+    <p>Selecciona el color que crees que coincide con el valor RGB:</p>
+    <div id="rgb"></div>
+    <div id="mensaje"></div>
+    <div id="colores"></div>
+    <button id="reset-boton">Reiniciar</button> -->
+    
+    <script src="rgb.js"></script>
 
-    <script>
-        const colorBoxes = document.getElementById("color-boxes");
-        const rgbDisplay = document.getElementById("rgb-display");
-        const message = document.getElementById("message");
-
-        let targetColor;
-
-        function getRandomColor() {
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
-            return `rgb(${r}, ${g}, ${b})`;
-        }
-
-        function setRandomColor() {
-            targetColor = getRandomColor();
-            rgbDisplay.textContent = targetColor;
-        }
-
-        function createColorBoxes() {
-            for (let i = 0; i < 6; i++) {
-                const colorBox = document.createElement("div");
-                colorBox.className = "color-box";
-                colorBox.style.backgroundColor = getRandomColor();
-                colorBox.addEventListener("click", checkGuess);
-                colorBoxes.appendChild(colorBox);
-            }
-        }
-
-        function checkGuess() {
-            if (this.style.backgroundColor === targetColor) {
-                message.textContent = "Correct! You guessed the right color!";
-                colorBoxes.removeEventListener("click", checkGuess);
-            } else {
-                this.style.backgroundColor = "#232323"; // Hide the incorrect choice
-                message.textContent = "Try again!";
-            }
-        }
-
-        function initGame() {
-            createColorBoxes();
-            setRandomColor();
-        }
-
-        initGame();
-    </script>
 </body>
 </html>
