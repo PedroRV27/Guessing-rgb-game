@@ -1,24 +1,43 @@
+
 window.onload = function() {
   const displayRGB = document.getElementById("rgb");
   const mensaje = document.getElementById("mensaje");
   const contenedorColores = document.getElementById("colores");
   const botonReset = document.getElementById("reset-boton");
-  let colores = generarColoresAleatorios(6);
-  let colorCorrecto = Math.floor(Math.random() * 6);
+  const botonFacil = document.getElementById("facil-boton");
+  const botonDificil = document.getElementById("dificil-boton");
   let jugando = true;
+  let dificultadFacil = false;
+  let numOpciones = 6; 
 
   botonReset.addEventListener("click", jugarDeNuevo);
+  botonFacil.addEventListener("click", function() {
+    cambiarDificultad(true);
+  });
+  botonDificil.addEventListener("click", function() {
+    cambiarDificultad(false);
+  });
 
   const cajasColores = [];
 
-  iniciarJuego();
+  cambiarDificultad(false); 
+
+  function cambiarDificultad(facil) {
+    dificultadFacil = facil;
+    numOpciones = dificultadFacil ? 3 : 6;
+    jugarDeNuevo();
+  }
 
   function iniciarJuego() {
     jugando = true;
+    const colores = generarColoresAleatorios(numOpciones);
+    const colorCorrecto = Math.floor(Math.random() * colores.length);
+
     displayRGB.textContent = colores[colorCorrecto];
     mensaje.textContent = "";
 
     contenedorColores.innerHTML = "";
+
     for (let i = 0; i < colores.length; i++) {
       const cajaColor = document.createElement("div");
       cajaColor.classList.add("huecos");
@@ -27,7 +46,7 @@ window.onload = function() {
         if (jugando) {
           if (e.target.style.backgroundColor === colores[colorCorrecto]) {
             mensaje.textContent = "Correcto";
-            cambiarColores(colores[i]);
+            cambiarColores(colores[colorCorrecto]);
             jugando = false;
           } else {
             mensaje.textContent = "Inténtalo de nuevo";
@@ -40,9 +59,7 @@ window.onload = function() {
   }
 
   function jugarDeNuevo() {
-    colores = generarColoresAleatorios(6);
-    colorCorrecto = Math.floor(Math.random() * 6);
-    cambiarColores(colores[colorCorrecto]);
+    cajasColores.length = 0;
     iniciarJuego();
   }
 
@@ -58,7 +75,7 @@ window.onload = function() {
   }
 
   function cambiarColores(color) {
-    for (let i = 0; i < colores.length; i++) {
+    for (let i = 0; i < cajasColores.length; i++) {
       cajasColores[i].style.backgroundColor = color;
     }
   }
