@@ -50,6 +50,7 @@ window.onload = function() {
             jugando = false;
           } else {
             mensaje.textContent = "Inténtalo de nuevo";
+            e.target.classList.add("incorrecto");
           }
         }
       });
